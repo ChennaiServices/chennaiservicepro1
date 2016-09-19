@@ -21,6 +21,13 @@
 	<definition name="Index" extends="layout.basic">
 		<put-attribute name="body" value="/templates/Index.jsp" />
 	</definition>
+	<definition name="MakeMeAsServiceProvider" extends="layout.basic">
+		<put-attribute name="body" value="/templates/MakeMeAsServiceProvider.jsp" />
+	</definition>
+	
+	<definition name="Carpenter" extends="layout.basic">
+		<put-attribute name="body" value="/templates/Carpenter.jsp" />
+	</definition>
 	
 	
 	

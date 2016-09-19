@@ -21,7 +21,7 @@
 <div class=row >
 <div class="col s12 m6 l4" ng-repeat="service in services | filter:{service:searchservice}">
 
-          <div class="card">
+        <a href="{{service.service}}">  <div class="card">
             <div class="card-image">
               <img src="{{service.servicepic}}">
               <span class="card-title black-text"><b>{{service.service}}</b></span>
@@ -30,9 +30,10 @@
               <p>{{service.servicedesc}}.</p>
             </div>
             <div class="card-action">
-              <a href="#">{{service.service}}</a>
+              <a>{{service.service}}</a>
             </div>
           </div>
+          </a>
 </div>
 </div>
 </div> 
@@ -41,9 +42,13 @@ var demo = angular.module("demo", []);
 demo.controller("demo1", function($scope, $http)
 		{
 	
-	$http.get('/demo/services').then(function(response) {
+	$http(
+			{
+				method:'GET',
+				url:'/demo/services'
+			}).then(function(response) {
 		$scope.services = response.data;
-		console.log(response.data);
+		
 	      
 	});
 		});

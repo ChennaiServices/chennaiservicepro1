@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.Model.Product;
+
 import com.example.Model.ProductRepo;
 import com.example.Model.Service;
 import com.example.Model.ServiceRepo;
@@ -27,11 +27,6 @@ public class DemoC {
 	ServiceRepo servicerepo;
 	
 	
-	@RequestMapping(value="/xyz")
-	public ModelAndView Ram()
-	{
-		return new ModelAndView("Home");
-	}
 	
 	@RequestMapping(value="/")
 	
@@ -46,6 +41,7 @@ public class DemoC {
 	
 	public ResponseEntity<List<Service>> getAllServices()
 	{
+		
 		List<Service> listser = new ArrayList<Service>();
 		Iterable<Service> its;
 		its = servicerepo.findAll();

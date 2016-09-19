@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+
 </head>
 <body>
  <footer class="page-footer grey darken-3">
@@ -37,6 +37,7 @@
 $(document).ready(function()
 		{
 	$(".button-collapse").sideNav();
+	 $('select').material_select();
 		});
 </script>
 </body>
