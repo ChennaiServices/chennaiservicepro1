@@ -8,31 +8,76 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+    (function()
+    		{
+    	
+    	 var result;
+    	 if(navigator.geolocation){
+	            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+	         
+	        } else{
+	            alert("Please Enable your Browser to show your Location");
+	        }
+    	    
+    	   
+    	    
+    	    // Define callback function for successful attempt
+    	    function successCallback(position){
+    	    	
+    	         
+    	        document.getElementById("Latitiude").value =position.coords.latitude;
+    	        document.getElementById("Longitude").value =position.coords.longitude;
+    	       
+    	        
+    	       
+    	        
+    	    }
+    	    
+    	   
+    	    function errorCallback(error){
+    	        if(error.code == 1){
+    	          alert("You've decided not to share your position, but it's OK. We won't ask you again.");
+    	        } else if(error.code == 2){
+    	        	alert("The network is down or the positioning service can't be reached.");
+    	        } else if(error.code == 3){
+    	        	alert("The attempt timed out before it could get the location data.");
+    	        } else{
+    	        	alert("Geolocation failed due to unknown error.");
+    	        }
+    	    }
+    	
+    		})();
+   
+</script>
+
 </head>
 <body data-ng-app="demo">
 
 <div class="container" data-ng-controller="demo1">
-<div class="card-panel  green accent-4"> <h1><center>BECOME A SERVICE PROVIDER</center></h1></div>
+<div class="card-panel  green accent-4"> <h1 class="black-text"><center>BECOME A SERVICE PROVIDER</center></h1></div>
 
 <form:form modelAttribute="ServiceProvider" method="POST" action="ServiceProvider">
 
-<input placeholder="First Name"  id="UserFirstName" type="text" class="active validate" name="UserFirstName" required>
+<input placeholder="First Name"   id="UserFirstName" type="text" class="active validate" name="UserFirstName"required>
 <input placeholder="Last Name"  id="UserLastName" type="text" class="active validate" name="UserLastName" required>
 <input placeholder="E-Mail ID"  id="User_Email" type="text" class="active validate" name="User_Email" required>
 <input placeholder="Preferred Area"  id="PreferredArea" type="text" class="active validate" name="PreferredArea" required>
 <br>
 <div class="input-field">
-    <select>
+    <select class="browser-default">
      
       <option ng-repeat="service in services">{{service}}</option>
      
     </select>
   </div>
   <br>
-<input placeholder="Latitiude"  id="Latitiude" type="text" class="active validate" name="Latitiude" required>
-<input placeholder="Longitude"  id="Longitude" type="text" class="active validate"  name="Longitude" required>
+<input placeholder="Latitiude"  id="Latitiude" type="text" class="active validate" name="Latitiude" >
+<input placeholder="Longitude"  id="Longitude" type="text" class="active validate"  name="Longitude" >
 <input placeholder="Phone Number"  id="PhoneNumber" type="text" class="active validate"  name="PhoneNumber" required>
-<button type="submit" value="Submit">Submit</button>
+ <button class="btn waves-effect waves-light" type="submit" name="action" onclick="showPosition();">Submit
+    <i class="material-icons right"></i>
+  </button>
 
 </form:form>
 
