@@ -45,8 +45,7 @@ public class ServiceController {
 	@RequestMapping(value="/MakeMeAsServiceProvider",produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> findAllServices()
 	{
-		System.out.println("TRYING TO GET SERVIES");
-		System.out.println(servicerepo.findAllServices());
+		
 		return new ResponseEntity<List<String>>(servicerepo.findAllServices(), HttpStatus.OK);
 	}
 	
@@ -55,6 +54,7 @@ public class ServiceController {
 	@RequestMapping(value="/ServiceProvider", method=RequestMethod.POST)
 	public ModelAndView SaveServiceProvider(@ModelAttribute("ServiceProvider") Carpenter car )
 	{
+		System.out.println("GETTING LATITUDE"+ car.getLatitiude());
 		carrepo.save(car);
 		
 		return new ModelAndView("Index");

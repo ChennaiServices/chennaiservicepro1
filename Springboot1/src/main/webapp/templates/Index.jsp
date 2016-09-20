@@ -18,7 +18,7 @@
           <label for="search_service">Search Service</label>
         </div>
 </div>
-<div class=row >
+<div class="row" >
 <div class="col s12 m6 l4" ng-repeat="service in services | filter:{service:searchservice}">
 
         <a href="{{service.service}}">  <div class="card">
