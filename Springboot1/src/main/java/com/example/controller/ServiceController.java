@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Model.Carpenter;
 import com.example.Model.CarpenterRepo;
+import com.example.Model.Chennai;
+import com.example.Model.ChennaiRepo;
 import com.example.Model.Service;
 import com.example.Model.ServiceRepo;
+import com.example.Services.ChennaiServiceImpl;
 
 @RestController
 public class ServiceController {
@@ -24,6 +28,8 @@ public class ServiceController {
 	CarpenterRepo carrepo;
 	@Autowired
 	ServiceRepo servicerepo;
+	@Autowired
+	ChennaiServiceImpl chennaiserviceimpl;
 	
 	
 	
@@ -42,11 +48,19 @@ public class ServiceController {
 		return new ModelAndView("MakeMeAsServiceProvider");
 	}
 	
-	@RequestMapping(value="/MakeMeAsServiceProvider",produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value="/GetAllServices",produces = "application/json", method = RequestMethod.GET)
 	public ResponseEntity<List<String>> findAllServices()
 	{
 		
 		return new ResponseEntity<List<String>>(servicerepo.findAllServices(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/GetAllAreas",produces = "application/json", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> findAllChennaiAreas()
+	{
+		
+		
+		return new ResponseEntity<List<String>>(chennaiserviceimpl.getAllAreasChennai(), HttpStatus.OK);
 	}
 	
 	
@@ -54,7 +68,7 @@ public class ServiceController {
 	@RequestMapping(value="/ServiceProvider", method=RequestMethod.POST)
 	public ModelAndView SaveServiceProvider(@ModelAttribute("ServiceProvider") Carpenter car )
 	{
-		System.out.println("GETTING LATITUDE"+ car.getLatitiude());
+		
 		carrepo.save(car);
 		
 		return new ModelAndView("Index");
