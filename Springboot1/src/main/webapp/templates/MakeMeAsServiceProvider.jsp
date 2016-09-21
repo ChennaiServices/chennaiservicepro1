@@ -12,26 +12,19 @@
     (function()
     		{
     	
-    	 var result;
+    	
     	 if(navigator.geolocation){
-	            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+	           navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 	         
 	        } else{
 	            alert("Please Enable your Browser to show your Location");
 	        }
-    	    
     	   
-    	    
-    	    // Define callback function for successful attempt
     	    function successCallback(position){
-    	    	
-    	         
+    	    	 
     	        document.getElementById("Latitiude").value =position.coords.latitude;
     	        document.getElementById("Longitude").value =position.coords.longitude;
-    	       
-    	        
-    	       
-    	        
+    	    
     	    }
     	    
     	   
@@ -64,18 +57,23 @@
 <input placeholder="E-Mail ID"  id="User_Email" type="text" class="active validate" name="User_Email" required>
 <input placeholder="Preferred Area"  id="PreferredArea" type="text" class="active validate" name="PreferredArea" required>
 <br>
-<div class="input-field">
-    <select class="browser-default">
+<select class="browser-default">
      
       <option ng-repeat="service in services">{{service}}</option>
      
     </select>
+<div class="input-field">
+    <select class="browser-default">
+     
+      <option ng-repeat="area in areas track by $index">{{area}}</option>
+     
+    </select>
   </div>
   <br>
-<input placeholder="Latitiude"  id="Latitiude" type="text" class="active validate" name="Latitiude" >
-<input placeholder="Longitude"  id="Longitude" type="text" class="active validate"  name="Longitude" >
+<input placeholder="Latitiude"  id="Latitiude" type="text" class="active validate hide " name="Latitiude" >
+<input placeholder="Longitude"  id="Longitude" type="text" class="active validate hide "  name="Longitude" >
 <input placeholder="Phone Number"  id="PhoneNumber" type="text" class="active validate"  name="PhoneNumber" required>
- <button class="btn waves-effect waves-light" type="submit" name="action" onclick="showPosition();">Submit
+ <button class="btn waves-effect waves-light" type="submit" name="action">Submit
     <i class="material-icons right"></i>
   </button>
 
@@ -84,19 +82,41 @@
 </div>
 <script>
 var demo = angular.module("demo", []);
-demo.controller("demo1", function($scope, $http)
+demo.factory('getAllAreas', function($cacheFactory)
 		{
+			return $cacheFactory('chennaiareas');
+		});
+demo.controller("demo1", function($scope, $http, getAllAreas)
+		{
+	var chennaiareas = getAllAreas.get('chennaiareas');
+	if(chennaiareas)
+		{
+		alert("CACHED ");
+		$scope.areas = chennaiareas;
+		}
+	else
+		{
+		$http(
+				{
+					method:'GET',
+					url:'/demo/GetAllAreas'
+				}).then(function(response) {
+			$scope.areas = response.data;
+			
+		getAllAreas.put('chennaiareas',$scope.areas);
+			
+			});
+		
+	}
 	
 	$http(
 			{
 				method:'GET',
-				url:'/demo/MakeMeAsServiceProvider'
+				url:'/demo/GetAllServices'
 			}).then(function(response) {
 		$scope.services = response.data;
-		
-		
-	      
-	});
+		});
+	
 		});
 </script>
 </body>
